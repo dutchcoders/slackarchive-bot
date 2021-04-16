@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"os"
 	"os/signal"
@@ -36,7 +37,13 @@ func main() {
 	app.Before = config.Load
 	app.Action = run
 
-	app.Run(os.Args)
+	err := app.Run(os.Args)
+
+	if err != nil {
+		fmt.Printf("Slack Achive Bot failed: %s",err)
+		os.Exit(1)
+	}
+
 }
 
 func run(c *cli.Context) {
